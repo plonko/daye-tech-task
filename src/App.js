@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 
-function App() {
+import {
+  getProductsData,
+  productsLoadingSelector,
+  productsErrorSelector,
+  productsSelector
+} from "./products";
+
+const App = props => {
+  const { getProducts, products } = props;
+  console.log(props);
+
+  useEffect(() => {
+    getProducts();
+  }, [products]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Button variant="contained" color="primary">
+        Hello World
+      </Button>
+      {products && products.map(product => console.log(product))}
+    </main>
   );
-}
+};
 
-export default App;
+App.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape())
+};
+
+App.defaultProps = {
+  products: []
+};
+
+const mapStateToProps = state => ({
+  // products: productsSelector(state)
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getProducts: language => {
+      dispatch(getProductsData(language));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
