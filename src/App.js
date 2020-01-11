@@ -16,7 +16,7 @@ const App = props => {
 
   useEffect(() => {
     getProducts();
-  }, [products]);
+  }, [getProducts]);
 
   return (
     <main>
@@ -37,7 +37,7 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  // products: productsSelector(state)
+  products: productsSelector(state)
 });
 
 const mapDispatchToProps = dispatch => {
