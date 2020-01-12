@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 import {
   getProductsData,
@@ -20,16 +20,27 @@ const App = props => {
 
   return (
     <main>
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
-      {products && products.map(product => console.log(product))}
+      <CssBaseline />
+      {products && products.map(product => product.price)}
     </main>
   );
 };
 
 App.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.shape())
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      price: PropTypes.number.isRequired,
+      currency: PropTypes.string.isRequired,
+      productImage: PropTypes.string.isRequired,
+      tampons: PropTypes.arrayOf(
+        PropTypes.shape({
+          size: PropTypes.string.isRequired,
+          coating: PropTypes.string.isRequired,
+          amount: PropTypes.number.isRequired
+        }).isRequired
+      ).isRequired
+    }).isRequired
+  )
 };
 
 App.defaultProps = {
@@ -37,7 +48,9 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  products: productsSelector(state)
+  products: productsSelector(state),
+  isLoading: productsLoadingSelector(state),
+  isError: productsErrorSelector(state)
 });
 
 const mapDispatchToProps = dispatch => {
