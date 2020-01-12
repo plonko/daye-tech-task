@@ -1,3 +1,10 @@
+// TODO: Make filter lists from data
+// TODO: Clean data before it goes into store
+// TODO: Add error catching for unknown buggy data
+// TODO: Tests for buggy/clean data
+// TODO: Component tests
+// TODO: Hook up filters
+
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
