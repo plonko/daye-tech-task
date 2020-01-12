@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Product = ({ price }) => {
-  return <div>{price}</div>;
+const Product = ({ price, tampons }) => {
+  return (
+    <div>
+      {price}
+      <br></br>
+      length: {tampons.length}
+    </div>
+  );
 };
 
 Product.propTypes = {

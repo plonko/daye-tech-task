@@ -6,11 +6,11 @@
 // TODO: Hook up filters
 // DONE: Tidy up propTypes
 // TODO: Add ID to product in store, replace index
+// TODO: constants file for URL etc
 // TODO: Use Redux hooks?
 
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import {

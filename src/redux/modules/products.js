@@ -50,11 +50,42 @@ export function getProductsData(hotelCode) {
         url: `${url}`
       });
 
-      dispatch(productsDataSuccess(request.data));
+      const data = transformData(request.data);
+
+      dispatch(productsDataSuccess(data));
+      // dispatch(processProductsData(request.data));
     } catch (error) {
       console.error("Response error", error);
       dispatch(productsDataError(true));
     }
+  };
+}
+const malformedTamponKeys = ["tapons"];
+
+function transformData(data) {
+  return data.map(dataObject => {
+    const { price, currency, productImage } = dataObject;
+    const malformedKey = Object.keys(dataObject).filter(elem =>
+      malformedTamponKeys.includes(elem)
+    );
+    if (malformedKey.length) {
+      return {
+        tampons: malformedKey[0],
+        price,
+        currency,
+        productImage
+      };
+    } else {
+      return dataObject;
+    }
+  });
+}
+
+export function processProductsData(data) {
+  console.log(data);
+
+  return dispatch => {
+    dispatch(productsDataSuccess(transformData(data)));
   };
 }
 
