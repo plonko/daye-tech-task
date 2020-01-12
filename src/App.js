@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -9,6 +9,7 @@ import {
   productsErrorSelector,
   productsSelector
 } from "./products";
+import FilterableProductList from "./FilterableProductList";
 
 const App = props => {
   const { getProducts, products } = props;
@@ -19,10 +20,10 @@ const App = props => {
   }, [getProducts]);
 
   return (
-    <main>
+    <Fragment>
       <CssBaseline />
-      {products && products.map(product => product.price)}
-    </main>
+      <FilterableProductList products={products} />
+    </Fragment>
   );
 };
 
