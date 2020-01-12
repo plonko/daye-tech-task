@@ -4,6 +4,9 @@
 // TODO: Tests for buggy/clean data
 // TODO: Component tests
 // TODO: Hook up filters
+// DONE: Tidy up propTypes
+// TODO: Add ID to product in store, replace index
+// TODO: Use Redux hooks?
 
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
@@ -35,20 +38,7 @@ const App = props => {
 };
 
 App.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      price: PropTypes.number.isRequired,
-      currency: PropTypes.string.isRequired,
-      productImage: PropTypes.string.isRequired,
-      tampons: PropTypes.arrayOf(
-        PropTypes.shape({
-          size: PropTypes.string.isRequired,
-          coating: PropTypes.string.isRequired,
-          amount: PropTypes.number.isRequired
-        }).isRequired
-      ).isRequired
-    }).isRequired
-  )
+  products: FilterableProductList.propTypes.products
 };
 
 App.defaultProps = {

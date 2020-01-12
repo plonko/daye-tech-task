@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -45,8 +46,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function FilterableProductList(props) {
-  const { container, products } = props;
+function FilterableProductList({ container, products }) {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -104,12 +104,26 @@ function FilterableProductList(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>Products</Typography>
-        {products && products.map(product => <Product product={product} />)}
+        {products &&
+          products.map(({ price, currency, productImage, tampons }, index) => (
+            <Product
+              key={index}
+              price={price}
+              currency={currency}
+              productImage={productImage}
+              tampons={tampons}
+            />
+          ))}
       </main>
     </div>
   );
 }
 
-FilterableProductList.propTypes = {};
+FilterableProductList.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape(Product.propTypes).isRequired)
+};
 
+FilterableProductList.defaultProps = {
+  products: []
+};
 export default FilterableProductList;
