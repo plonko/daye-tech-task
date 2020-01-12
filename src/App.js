@@ -8,8 +8,8 @@ import {
   productsLoadingSelector,
   productsErrorSelector,
   productsSelector
-} from "./products";
-import FilterableProductList from "./FilterableProductList";
+} from "./redux/modules/products";
+import FilterableProductList from "./components/FilterableProductList";
 
 const App = props => {
   const { getProducts, products } = props;
