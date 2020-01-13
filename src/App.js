@@ -9,7 +9,9 @@
 // DONE: constants file for URL etc
 // TODO: Add loading state
 // TODO: Use Redux hooks?
-// TODO: Make data processing funcs chainable
+// TODO: Make data processing funcs chainable?
+// TODO: Delete malformed key instead of copying all properties
+// TODO: Error boundaries
 
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
