@@ -108,9 +108,11 @@ function FilterableProductList({ container, products }) {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Typography variant="h5">Products</Typography>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {products ? (
+            {products.length ? (
               products.map(({ id, price, currency, productImage, tampons }) => (
                 <Product
                   key={id}
@@ -126,8 +128,6 @@ function FilterableProductList({ container, products }) {
             )}
           </Grid>
         </Container>
-        <div className={classes.toolbar} />
-        <Typography paragraph>Products</Typography>
       </main>
     </div>
   );

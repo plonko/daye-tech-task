@@ -1,10 +1,12 @@
 import axios from "axios";
+import { createSelector } from "reselect";
 import { API_URL } from "../../utils/constants";
 import {
   addIds,
   processMalformedTamponKey,
   processXmlToJson
 } from "../../utils/processData";
+import { productFilterKeywordSelector } from "./filters";
 
 // Actions
 const PRODUCTS_DATA_LOADING = "products/PRODUCTS_DATA_LOADING";
@@ -14,12 +16,26 @@ const PRODUCTS_DATA_ERROR = "products/PRODUCTS_DATA_ERROR";
 const initialState = {
   loading: false,
   error: null,
+  filterKeyword: null,
   products: []
 };
 
 export const productsLoadingSelector = state => state.products.loading;
 export const productsErrorSelector = state => state.products.error;
 export const productsSelector = state => state.products.products;
+
+export const productsFilteredByKeyword = createSelector(
+  [productsSelector, productFilterKeywordSelector],
+  (products, keyword) => {
+    return products.filter(product => {
+      return product.tampons.some(tampon => {
+        return Object.values(tampon).some(term => {
+          return keyword.includes(term);
+        });
+      });
+    });
+  }
+);
 
 // Action Creators
 export function productsDataLoading() {

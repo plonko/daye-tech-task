@@ -22,13 +22,14 @@ import {
   getProductsData,
   productsLoadingSelector,
   productsErrorSelector,
-  productsSelector
+  productsSelector,
+  productsFilteredByKeyword
 } from "./redux/modules/products";
 import FilterableProductList from "./components/FilterableProductList";
 
 const App = props => {
-  const { getProducts, products } = props;
-
+  const { getProducts, products, filteredProducts } = props;
+  console.log(filteredProducts);
   useEffect(() => {
     getProducts();
   }, [getProducts]);
@@ -36,7 +37,7 @@ const App = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <FilterableProductList products={products} />
+      <FilterableProductList products={filteredProducts} />
     </Fragment>
   );
 };
@@ -51,6 +52,7 @@ App.defaultProps = {
 
 const mapStateToProps = state => ({
   products: productsSelector(state),
+  filteredProducts: productsFilteredByKeyword(state),
   isLoading: productsLoadingSelector(state),
   isError: productsErrorSelector(state)
 });
