@@ -25,11 +25,12 @@ import {
   productsSelector,
   productsFilteredByKeyword
 } from "./redux/modules/products";
+import { updateFilterKeyword } from "./redux/modules/filters";
 import FilterableProductList from "./components/FilterableProductList";
 
 const App = props => {
-  const { getProducts, products, filteredProducts } = props;
-  console.log(filteredProducts);
+  const { getProducts, products, filteredProducts, setFilterKeywords } = props;
+
   useEffect(() => {
     getProducts();
   }, [getProducts]);
@@ -37,17 +38,22 @@ const App = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <FilterableProductList products={filteredProducts} />
+      <FilterableProductList
+        products={filteredProducts.length ? filteredProducts : products}
+        setFilterKeywords={setFilterKeywords}
+      />
     </Fragment>
   );
 };
 
 App.propTypes = {
-  products: FilterableProductList.propTypes.products
+  products: FilterableProductList.propTypes.products,
+  filteredProducts: FilterableProductList.propTypes.products
 };
 
 App.defaultProps = {
-  products: []
+  products: [],
+  filteredProducts: []
 };
 
 const mapStateToProps = state => ({
@@ -61,6 +67,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => {
       dispatch(getProductsData());
+    },
+    setFilterKeywords: keywords => {
+      dispatch(updateFilterKeyword(keywords));
     }
   };
 };

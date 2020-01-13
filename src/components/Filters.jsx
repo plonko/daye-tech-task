@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Filters = props => {
+  const { setFilterKeywords } = props;
   const classes = useStyles();
 
   const [checked, setChecked] = React.useState([]);
@@ -25,6 +26,7 @@ const Filters = props => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
+    setFilterKeywords(["CBD"]);
 
     setChecked(newChecked);
   };

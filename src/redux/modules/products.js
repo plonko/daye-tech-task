@@ -29,7 +29,9 @@ export const productsFilteredByKeyword = createSelector(
   (products, keyword) => {
     return products.filter(product => {
       return product.tampons.some(tampon => {
+        // Check in tampons array
         return Object.values(tampon).some(term => {
+          // Flatten values, check in that array
           return keyword.includes(term);
         });
       });

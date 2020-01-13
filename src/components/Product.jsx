@@ -10,7 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { getCurrencySymbol } from "../utils/currency";
 
-const Product = ({ price, currency, productImage, tampons }) => {
+const Product = props => {
+  const { price, currency, productImage, tampons } = props;
   const useStyles = makeStyles(theme => ({
     card: {
       height: "100%",

@@ -9,7 +9,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import Filters from "./Filters";
 import Product from "./Product";
@@ -52,13 +53,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function FilterableProductList({ container, products }) {
+const FilterableProductList = props => {
+  const { container, products, setFilterKeywords } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+  console.log(isDesktop);
 
   return (
     <div className={classes.root}>
@@ -79,33 +84,20 @@ function FilterableProductList({ container, products }) {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="filters">
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
-          >
-            <Filters />
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            variant="permanent"
-            open
-          >
-            <Filters />
-          </Drawer>
-        </Hidden>
+        <Drawer
+          container={container}
+          variant={isDesktop ? "permanent" : "temporary"}
+          open={isDesktop ? true : mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+        >
+          <Filters setFilterKeywords={setFilterKeywords} />
+        </Drawer>
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
@@ -131,7 +123,7 @@ function FilterableProductList({ container, products }) {
       </main>
     </div>
   );
-}
+};
 
 FilterableProductList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape(Product.propTypes).isRequired)
@@ -140,4 +132,5 @@ FilterableProductList.propTypes = {
 FilterableProductList.defaultProps = {
   products: []
 };
+
 export default FilterableProductList;
