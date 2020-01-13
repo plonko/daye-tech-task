@@ -27,7 +27,6 @@ import FilterableProductList from "./components/FilterableProductList";
 
 const App = props => {
   const { getProducts, products } = props;
-  console.log(props);
 
   useEffect(() => {
     getProducts();

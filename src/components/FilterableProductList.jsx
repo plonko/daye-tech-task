@@ -7,6 +7,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Filters from "./Filters";
@@ -35,6 +37,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       display: "none"
     }
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8)
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -102,19 +108,26 @@ function FilterableProductList({ container, products }) {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        <Container className={classes.cardGrid} maxWidth="md">
+          <Grid container spacing={4}>
+            {products ? (
+              products.map(({ id, price, currency, productImage, tampons }) => (
+                <Product
+                  key={id}
+                  id={id}
+                  price={price}
+                  currency={currency}
+                  productImage={productImage}
+                  tampons={tampons}
+                />
+              ))
+            ) : (
+              <p>Sorry, no products available</p>
+            )}
+          </Grid>
+        </Container>
         <div className={classes.toolbar} />
         <Typography paragraph>Products</Typography>
-        {products &&
-          products.map(({ id, price, currency, productImage, tampons }) => (
-            <Product
-              key={id}
-              id={id}
-              price={price}
-              currency={currency}
-              productImage={productImage}
-              tampons={tampons}
-            />
-          ))}
       </main>
     </div>
   );
