@@ -6,7 +6,7 @@ const Product = ({ price, tampons }) => {
     <div>
       {price}
       <br></br>
-      length: {tampons.length}
+      data: {tampons[0].size}
     </div>
   );
 };

@@ -7,6 +7,7 @@
 // DONE: Tidy up propTypes
 // TODO: Add ID to product in store, replace index
 // TODO: constants file for URL etc
+// TODO: Add loading state
 // TODO: Use Redux hooks?
 
 import React, { useEffect, Fragment } from "react";

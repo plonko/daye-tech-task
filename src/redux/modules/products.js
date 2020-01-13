@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL, MALFORMED_TAMPON_KEYS } from "../../utils/constants";
 
 // Actions
 const PRODUCTS_DATA_LOADING = "products/PRODUCTS_DATA_LOADING";
@@ -37,8 +38,6 @@ export function productsDataError(error) {
     }
   };
 }
-// const errorUrl = "https://github.com/axios/axiosss";
-const url = "https://front-end-test-bvhzjr6b6a-uc.a.run.app";
 
 export function getProductsData(hotelCode) {
   return async dispatch => {
@@ -47,12 +46,16 @@ export function getProductsData(hotelCode) {
 
       const request = await axios({
         method: "get",
-        url: `${url}`
+        url: `${API_URL}`
       });
 
-      const data = transformData(request.data);
+      // const cleanData = processProductsData(request.data)
+      //   .processXmlToJson()
+      //   .processMalformedTamponKey();
+      const dataWithCleanKeys = processMalformedTamponKey(request.data);
+      const dataWithCleanJson = processXmlToJson(dataWithCleanKeys);
 
-      dispatch(productsDataSuccess(data));
+      dispatch(productsDataSuccess(dataWithCleanJson));
       // dispatch(processProductsData(request.data));
     } catch (error) {
       console.error("Response error", error);
@@ -60,17 +63,17 @@ export function getProductsData(hotelCode) {
     }
   };
 }
-const malformedTamponKeys = ["tapons"];
 
-function transformData(data) {
+function processMalformedTamponKey(data) {
   return data.map(dataObject => {
     const { price, currency, productImage } = dataObject;
     const malformedKey = Object.keys(dataObject).filter(elem =>
-      malformedTamponKeys.includes(elem)
+      MALFORMED_TAMPON_KEYS.includes(elem)
     );
     if (malformedKey.length) {
+      const key = malformedKey[0];
       return {
-        tampons: malformedKey[0],
+        tampons: dataObject[key],
         price,
         currency,
         productImage
@@ -81,13 +84,16 @@ function transformData(data) {
   });
 }
 
-export function processProductsData(data) {
-  console.log(data);
-
-  return dispatch => {
-    dispatch(productsDataSuccess(transformData(data)));
-  };
+function processXmlToJson(data) {
+  return data.map(dataObject => ({ ...dataObject, price: 0 }));
 }
+
+// function processProductsData(data) {
+//   return {
+//     processXmlToJson: processXmlToJson(data),
+//     processMalformedTamponKey: processMalformedTamponKey(data)
+//   };
+// }
 
 // Reducer
 export default function reducer(state = initialState, action) {
