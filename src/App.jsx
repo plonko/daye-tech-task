@@ -1,11 +1,12 @@
 // TODO: Make filter lists from data
-// TODO: Clean data before it goes into store
-// TODO: Add error catching for unknown buggy data
+// DONE: Clean data before it goes into store
+// DONE: Add error catching for unknown buggy data
 // TODO: Tests for buggy/clean data
 // TODO: Component tests
+// DONE: Style products
 // TODO: Hook up filters
 // DONE: Tidy up propTypes
-// TODO: Add ID to product in store, replace index
+// DONE: Add ID to product in store, replace index
 // DONE: constants file for URL etc
 // TODO: Add loading state
 // TODO: Use Redux hooks?
