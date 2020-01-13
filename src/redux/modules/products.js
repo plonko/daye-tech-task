@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "../../utils/constants";
 import {
+  addIds,
   processMalformedTamponKey,
   processXmlToJson
 } from "../../utils/processData";
@@ -43,7 +44,7 @@ export function productsDataError(error) {
   };
 }
 
-export function getProductsData(hotelCode) {
+export function getProductsData() {
   return async dispatch => {
     try {
       dispatch(productsDataLoading());
@@ -53,7 +54,8 @@ export function getProductsData(hotelCode) {
         url: `${API_URL}`
       });
 
-      const dataWithCleanKeys = processMalformedTamponKey(request.data);
+      const dataWithIds = addIds(request.data);
+      const dataWithCleanKeys = processMalformedTamponKey(dataWithIds);
       const dataWithCleanJson = processXmlToJson(dataWithCleanKeys);
 
       dispatch(productsDataSuccess(dataWithCleanJson));

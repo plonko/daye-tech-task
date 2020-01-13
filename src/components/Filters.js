@@ -34,7 +34,7 @@ const Filters = props => {
       <div className={classes.toolbar} />
       <Divider />
       <List subheader={<ListSubheader>Coating</ListSubheader>}>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => {
+        {["Inbox", "Starred", "Send email", "Drafts"].map(text => {
           const labelId = `checkbox-list-secondary-label-${text}`;
 
           return (

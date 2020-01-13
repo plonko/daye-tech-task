@@ -1,10 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Product = ({ price, tampons }) => {
+const Product = ({ price, tampons, id }) => {
   return (
     <div>
       {price}
+      <br></br>
+      id: {id}
       <br></br>
       data: {tampons[0].size}
     </div>
@@ -12,6 +14,7 @@ const Product = ({ price, tampons }) => {
 };
 
 Product.propTypes = {
+  id: PropTypes.number.isRequired,
   price: PropTypes.number.isRequired,
   currency: PropTypes.string.isRequired,
   productImage: PropTypes.string.isRequired,

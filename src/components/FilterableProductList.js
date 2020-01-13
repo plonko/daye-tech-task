@@ -105,9 +105,10 @@ function FilterableProductList({ container, products }) {
         <div className={classes.toolbar} />
         <Typography paragraph>Products</Typography>
         {products &&
-          products.map(({ price, currency, productImage, tampons }, index) => (
+          products.map(({ id, price, currency, productImage, tampons }) => (
             <Product
-              key={index}
+              key={id}
+              id={id}
               price={price}
               currency={currency}
               productImage={productImage}

@@ -55,8 +55,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: language => {
-      dispatch(getProductsData(language));
+    getProducts: () => {
+      dispatch(getProductsData());
     }
   };
 };
