@@ -30,7 +30,7 @@ function isValidXML(data) {
   return parser.validate(data);
 }
 
-function cleanXML(data) {
+function parseXML(data) {
   const jsonObj = parser.parse(data);
   const { tapons } = jsonObj;
   const { tampon } = tapons;
@@ -42,7 +42,7 @@ function cleanXML(data) {
   }
 }
 
-function cleanDataValue(data) {
+function cleanXmlDataValue(data) {
   // var xml = "<root>Hello xml2js!</root>";
   // var strin = "godday";
   // var arr = [{ b: 2 }, { a: 1 }];
@@ -55,7 +55,7 @@ function cleanDataValue(data) {
     if (isValidDataType(data)) {
       return data;
     } else if (isValidXML(data)) {
-      return cleanXML(data);
+      return parseXML(data);
     } else {
       throw new Error("Unknown buggy data in response");
     }
@@ -67,8 +67,10 @@ function cleanDataValue(data) {
 export function processXmlToJson(data) {
   return data.map(dataObject => {
     const { tampons, ...rest } = dataObject;
+    const jsonParsedData = cleanXmlDataValue(tampons);
+    const jsonParsedDataWithIds = addIds(jsonParsedData);
     return {
-      tampons: cleanDataValue(tampons),
+      tampons: jsonParsedDataWithIds,
       ...rest
     };
   });
