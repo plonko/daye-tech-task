@@ -6,9 +6,10 @@
 // TODO: Hook up filters
 // DONE: Tidy up propTypes
 // TODO: Add ID to product in store, replace index
-// TODO: constants file for URL etc
+// DONE: constants file for URL etc
 // TODO: Add loading state
 // TODO: Use Redux hooks?
+// TODO: Make data processing funcs chainable
 
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";

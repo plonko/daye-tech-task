@@ -1,5 +1,9 @@
 import axios from "axios";
-import { API_URL, MALFORMED_TAMPON_KEYS } from "../../utils/constants";
+import { API_URL } from "../../utils/constants";
+import {
+  processMalformedTamponKey,
+  processXmlToJson
+} from "../../utils/processData";
 
 // Actions
 const PRODUCTS_DATA_LOADING = "products/PRODUCTS_DATA_LOADING";
@@ -49,51 +53,16 @@ export function getProductsData(hotelCode) {
         url: `${API_URL}`
       });
 
-      // const cleanData = processProductsData(request.data)
-      //   .processXmlToJson()
-      //   .processMalformedTamponKey();
       const dataWithCleanKeys = processMalformedTamponKey(request.data);
       const dataWithCleanJson = processXmlToJson(dataWithCleanKeys);
 
       dispatch(productsDataSuccess(dataWithCleanJson));
-      // dispatch(processProductsData(request.data));
     } catch (error) {
       console.error("Response error", error);
       dispatch(productsDataError(true));
     }
   };
 }
-
-function processMalformedTamponKey(data) {
-  return data.map(dataObject => {
-    const { price, currency, productImage } = dataObject;
-    const malformedKey = Object.keys(dataObject).filter(elem =>
-      MALFORMED_TAMPON_KEYS.includes(elem)
-    );
-    if (malformedKey.length) {
-      const key = malformedKey[0];
-      return {
-        tampons: dataObject[key],
-        price,
-        currency,
-        productImage
-      };
-    } else {
-      return dataObject;
-    }
-  });
-}
-
-function processXmlToJson(data) {
-  return data.map(dataObject => ({ ...dataObject, price: 0 }));
-}
-
-// function processProductsData(data) {
-//   return {
-//     processXmlToJson: processXmlToJson(data),
-//     processMalformedTamponKey: processMalformedTamponKey(data)
-//   };
-// }
 
 // Reducer
 export default function reducer(state = initialState, action) {
