@@ -8,51 +8,15 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import Filters from "./Filters";
 import Product from "./Product";
 
-const drawerWidth = 240;
+import { useStyles } from "./ProductList.mui";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0
-    }
-  },
-  appBar: {
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth
-    }
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8)
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  }
-}));
-
-const FilterableProductList = props => {
+const ProductList = props => {
   const { container, products, setFilterKeywords } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -123,12 +87,12 @@ const FilterableProductList = props => {
   );
 };
 
-FilterableProductList.propTypes = {
+ProductList.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape(Product.propTypes).isRequired)
 };
 
-FilterableProductList.defaultProps = {
+ProductList.defaultProps = {
   products: []
 };
 
-export default FilterableProductList;
+export default ProductList;

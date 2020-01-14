@@ -7,30 +7,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+
 import { getCurrencySymbol } from "../utils/currency";
+import { useStyles } from "./Product.mui-styles";
 
 const Product = props => {
   const { price, currency, productImage, tampons } = props;
-  const useStyles = makeStyles(theme => ({
-    card: {
-      height: "100%",
-      display: "flex",
-      flexDirection: "column"
-    },
-    cardMedia: {
-      paddingTop: "56.25%" // 16:9
-    },
-    cardPricing: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "baseline",
-      marginBottom: theme.spacing(2)
-    },
-    cardContent: {
-      flexGrow: 1
-    }
-  }));
   const classes = useStyles();
 
   const getProductDescription = (amount, size, coating) => {

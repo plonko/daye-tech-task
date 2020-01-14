@@ -1,10 +1,9 @@
-// TODO: Make filter lists from data
 // DONE: Clean data before it goes into store
 // DONE: Add error catching for unknown buggy data
 // TODO: Tests for buggy/clean data
 // TODO: Component tests
 // DONE: Style products
-// TODO: Hook up filters
+// DONE: Hook up filters
 // DONE: Tidy up propTypes
 // DONE: Add ID to product in store, replace index
 // DONE: constants file for URL etc
@@ -12,6 +11,7 @@
 // TODO: Use Redux hooks?
 // TODO: Make data processing funcs chainable?
 // TODO: Delete malformed key instead of copying all properties
+// TODO: Make filter lists from data?
 // TODO: Error boundaries
 
 import React, { useEffect, Fragment } from "react";
@@ -27,7 +27,7 @@ import {
   productsFilteredByKeyword
 } from "./redux/modules/products";
 import { updateFilterKeywords } from "./redux/modules/filters";
-import FilterableProductList from "./components/FilterableProductList";
+import ProductList from "./components/ProductList";
 
 const App = props => {
   const { getProducts, products, filteredProducts, setFilterKeywords } = props;
@@ -39,7 +39,7 @@ const App = props => {
   return (
     <Fragment>
       <CssBaseline />
-      <FilterableProductList
+      <ProductList
         products={filteredProducts.length ? filteredProducts : products}
         setFilterKeywords={setFilterKeywords}
       />
@@ -48,8 +48,8 @@ const App = props => {
 };
 
 App.propTypes = {
-  products: FilterableProductList.propTypes.products,
-  filteredProducts: FilterableProductList.propTypes.products,
+  products: ProductList.propTypes.products,
+  filteredProducts: ProductList.propTypes.products,
   setFilterKeywords: PropTypes.func
 };
 
