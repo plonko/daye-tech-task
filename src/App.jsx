@@ -15,6 +15,7 @@
 // TODO: Error boundaries
 
 import React, { useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
@@ -25,7 +26,7 @@ import {
   productsSelector,
   productsFilteredByKeyword
 } from "./redux/modules/products";
-import { updateFilterKeyword } from "./redux/modules/filters";
+import { updateFilterKeywords } from "./redux/modules/filters";
 import FilterableProductList from "./components/FilterableProductList";
 
 const App = props => {
@@ -48,12 +49,14 @@ const App = props => {
 
 App.propTypes = {
   products: FilterableProductList.propTypes.products,
-  filteredProducts: FilterableProductList.propTypes.products
+  filteredProducts: FilterableProductList.propTypes.products,
+  setFilterKeywords: PropTypes.func
 };
 
 App.defaultProps = {
   products: [],
-  filteredProducts: []
+  filteredProducts: [],
+  setFilterKeywords: () => {}
 };
 
 const mapStateToProps = state => ({
@@ -69,7 +72,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getProductsData());
     },
     setFilterKeywords: keywords => {
-      dispatch(updateFilterKeyword(keywords));
+      dispatch(updateFilterKeywords(keywords));
     }
   };
 };

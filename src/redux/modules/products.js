@@ -26,13 +26,13 @@ export const productsSelector = state => state.products.products;
 
 export const productsFilteredByKeyword = createSelector(
   [productsSelector, productFilterKeywordSelector],
-  (products, keyword) => {
+  (products, keywords) => {
     return products.filter(product => {
       return product.tampons.some(tampon => {
         // Check in tampons array
         return Object.values(tampon).some(term => {
-          // Flatten values, check in that array
-          return keyword.includes(term);
+          // Flatten values, check in keyword array
+          return keywords.includes(term.toString().toLocaleLowerCase());
         });
       });
     });

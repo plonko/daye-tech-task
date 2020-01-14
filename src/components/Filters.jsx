@@ -26,7 +26,7 @@ const Filters = props => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-    setFilterKeywords(["CBD"]);
+    // setFilterKeywords(["CBD"]);
 
     setChecked(newChecked);
   };
@@ -36,15 +36,16 @@ const Filters = props => {
       <div className={classes.toolbar} />
       <Divider />
       <List subheader={<ListSubheader>Coating</ListSubheader>}>
-        {["Inbox", "Starred", "Send email", "Drafts"].map(text => {
-          const labelId = `checkbox-list-secondary-label-${text}`;
+        {["CBD", "None"].map(text => {
+          const value = text.toString().toLocaleLowerCase();
+          const labelId = `checkbox-list-secondary-label-${value}`;
 
           return (
-            <ListItem button key={text} dense onClick={handleToggle(text)}>
+            <ListItem button key={value} dense onClick={handleToggle(value)}>
               <ListItemText primary={text} />
               <Checkbox
                 edge="end"
-                checked={checked.indexOf(text) !== -1}
+                checked={checked.indexOf(value) !== -1}
                 disableRipple
                 inputProps={{ "aria-labelledby": labelId }}
               />

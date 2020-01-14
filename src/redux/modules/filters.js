@@ -1,16 +1,16 @@
-const UPDATE_FILTER_KEYWORD = "products/UPDATE_FILTER_KEYWORD";
+const UPDATE_FILTER_KEYWORDS = "products/UPDATE_FILTER_KEYWORDS";
 
 const initialState = {
-  keyword: []
+  keywords: []
 };
 
-export const productFilterKeywordSelector = state => state.filters.keyword;
+export const productFilterKeywordSelector = state => state.filters.keywords;
 
-export function updateFilterKeyword(keyword) {
+export function updateFilterKeywords(keywords) {
   return {
-    type: UPDATE_FILTER_KEYWORD,
+    type: UPDATE_FILTER_KEYWORDS,
     payload: {
-      keyword
+      keywords
     }
   };
 }
@@ -18,10 +18,10 @@ export function updateFilterKeyword(keyword) {
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_FILTER_KEYWORD:
+    case UPDATE_FILTER_KEYWORDS:
       return {
         ...state,
-        keyword: action.payload.keyword
+        keywords: action.payload.keywords
       };
     default:
       return state;
