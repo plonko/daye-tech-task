@@ -14,7 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Filters from "./Filters";
 import Product from "./Product";
 
-import { useStyles } from "./ProductList.mui";
+import { useStyles } from "./ProductList.mui-styles";
 
 const ProductList = props => {
   const { container, products, setFilterKeywords } = props;
