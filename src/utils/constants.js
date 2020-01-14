@@ -7,3 +7,9 @@ export const CURRENCY_SYMBOLS = {
   USD: "$",
   EUR: "€"
 };
+
+export const FILTER_CATEGORIES = [
+  { heading: "Coating", values: ["CBD", "None"] },
+  { heading: "Size", values: ["Regular", "Small"] },
+  { heading: "Amount", values: [2, 4, 8, 10, 12] }
+];
