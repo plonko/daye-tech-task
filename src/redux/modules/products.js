@@ -15,8 +15,7 @@ const PRODUCTS_DATA_ERROR = "products/PRODUCTS_DATA_ERROR";
 
 const initialState = {
   loading: false,
-  error: null,
-  filterKeyword: null,
+  error: false,
   products: []
 };
 
@@ -96,14 +95,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: null,
+        error: false,
         products: action.payload.products
       };
     case PRODUCTS_DATA_ERROR:
       return {
         ...state,
         loading: false,
-        error: action.payload.error
+        error: true
       };
     default:
       return state;

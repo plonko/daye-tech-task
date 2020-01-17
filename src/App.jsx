@@ -1,3 +1,5 @@
+// DONE: Add Material UI
+// DONE: Setup Redux Ducks
 // DONE: Clean data before it goes into store
 // DONE: Add error catching for unknown buggy data
 // TODO: Tests for buggy/clean data
@@ -7,7 +9,7 @@
 // DONE: Tidy up propTypes
 // DONE: Add ID to product in store, replace index
 // DONE: constants file for URL etc
-// TODO: Add loading state
+// DONE: Add loading state
 // TODO: Use Redux hooks?
 // TODO: Make data processing funcs chainable?
 // TODO: Delete malformed key instead of copying all properties
@@ -30,7 +32,14 @@ import { updateFilterKeywords } from "./redux/modules/filters";
 import ProductList from "./components/ProductList";
 
 const App = props => {
-  const { getProducts, products, filteredProducts, setFilterKeywords } = props;
+  const {
+    getProducts,
+    products,
+    filteredProducts,
+    setFilterKeywords,
+    isLoading,
+    isError
+  } = props;
 
   useEffect(() => {
     getProducts();
@@ -42,6 +51,8 @@ const App = props => {
       <ProductList
         products={filteredProducts.length ? filteredProducts : products}
         setFilterKeywords={setFilterKeywords}
+        isLoading={isLoading}
+        isError={isError}
       />
     </Fragment>
   );
@@ -50,7 +61,9 @@ const App = props => {
 App.propTypes = {
   products: ProductList.propTypes.products,
   filteredProducts: ProductList.propTypes.products,
-  setFilterKeywords: PropTypes.func
+  setFilterKeywords: PropTypes.func,
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired
 };
 
 App.defaultProps = {

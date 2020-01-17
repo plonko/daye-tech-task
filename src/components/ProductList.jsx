@@ -17,7 +17,7 @@ import Product from "./Product";
 import { useStyles } from "./ProductList.mui-styles";
 
 const ProductList = props => {
-  const { container, products, setFilterKeywords } = props;
+  const { container, products, setFilterKeywords, isLoading, isError } = props;
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -26,6 +26,35 @@ const ProductList = props => {
   };
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const getProductList = () => {
+    if (isLoading) {
+      return <Typography>Products loading...</Typography>;
+    }
+
+    if (isError) {
+      return (
+        <Typography>Sorry there was a problem loading the products.</Typography>
+      );
+    }
+
+    if (products.length === 0) {
+      return <Typography>Sorry, no products available.</Typography>;
+    }
+
+    return products
+      ? products.map(({ id, price, currency, productImage, tampons }) => (
+          <Product
+            key={id}
+            id={id}
+            price={price}
+            currency={currency}
+            productImage={productImage}
+            tampons={tampons}
+          />
+        ))
+      : null;
+  };
 
   return (
     <div className={classes.root}>
@@ -66,20 +95,7 @@ const ProductList = props => {
         <Typography variant="h5">Products</Typography>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {products.length ? (
-              products.map(({ id, price, currency, productImage, tampons }) => (
-                <Product
-                  key={id}
-                  id={id}
-                  price={price}
-                  currency={currency}
-                  productImage={productImage}
-                  tampons={tampons}
-                />
-              ))
-            ) : (
-              <p>Sorry, no products available</p>
-            )}
+            {getProductList()}
           </Grid>
         </Container>
       </main>
