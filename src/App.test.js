@@ -15,11 +15,11 @@ const TestComponent = (
   </Provider>
 );
 
-it("should make an async call", async () => {
-  const { container, getByText } = render(TestComponent);
-  console.log("££££", container);
+it("should have 6 products", async () => {
+  const { getAllByText } = render(TestComponent);
+  const productTitleText = await waitForElement(() =>
+    getAllByText("Tampon pack")
+  );
 
-  await waitForElement(() => getByText("texts loaded"));
-  // await wait(() => expect(fetch).toHaveBeenCalledTimes(2))
-  // expect(fetch).toHaveBeenCalledTimes(2);
+  expect(productTitleText).toHaveLength(6);
 });
