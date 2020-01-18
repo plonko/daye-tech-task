@@ -46,10 +46,7 @@ function parseXML(data) {
 }
 
 function cleanXmlDataValue(data) {
-  // var xml = "<root>Hello xml2js!</root>";
-  // var strin = "godday";
-  // var arr = [{ b: 2 }, { a: 1 }];
-
+  // This could do with some tests - when passed string, null, arr etc
   try {
     if (typeof data === "undefined") {
       return null;

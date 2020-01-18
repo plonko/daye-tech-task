@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
-import { getCurrencySymbol } from "../utils/currency";
+import { getCurrencySymbol } from "../utils/getCurrencySymbol";
 import { useStyles } from "./Product.mui-styles";
 
 const Product = props => {
