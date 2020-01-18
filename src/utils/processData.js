@@ -1,11 +1,14 @@
-import { MALFORMED_TAMPON_KEYS } from "./constants";
+import { KNOWN_MALFORMED_TAMPON_KEYS } from "./constants";
 var parser = require("fast-xml-parser");
 
-export function processMalformedTamponKey(data) {
+export function processMalformedTamponKey(
+  data,
+  keyList = KNOWN_MALFORMED_TAMPON_KEYS
+) {
   return data.map(dataObject => {
     const { price, currency, productImage, id } = dataObject;
     const malformedKey = Object.keys(dataObject).filter(elem =>
-      MALFORMED_TAMPON_KEYS.includes(elem)
+      keyList.includes(elem)
     );
     if (malformedKey.length) {
       const key = malformedKey[0];

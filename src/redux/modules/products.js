@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSelector } from "reselect";
-import { API_URL } from "../../utils/constants";
+import { API_URL, KNOWN_MALFORMED_TAMPON_KEYS } from "../../utils/constants";
 import {
   addIds,
   processMalformedTamponKey,
@@ -72,7 +72,10 @@ export function getProductsData() {
       });
 
       const dataWithIds = addIds(request.data);
-      const dataWithCleanKeys = processMalformedTamponKey(dataWithIds);
+      const dataWithCleanKeys = processMalformedTamponKey(
+        dataWithIds,
+        KNOWN_MALFORMED_TAMPON_KEYS
+      );
       const dataWithCleanJson = processXmlToJson(dataWithCleanKeys);
 
       dispatch(productsDataSuccess(dataWithCleanJson));
