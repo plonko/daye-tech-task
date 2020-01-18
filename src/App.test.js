@@ -1,5 +1,11 @@
 import React from "react";
-import { render, waitForElement, wait } from "@testing-library/react";
+import {
+  render,
+  waitForElement,
+  wait,
+  fireEvent,
+  screen
+} from "@testing-library/react";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -39,5 +45,14 @@ test("The loading message is removed", async () => {
 
   await wait(() => {
     expect(queryByText("Products loading...")).not.toBeInTheDocument();
+  });
+});
+
+test("Shows the right number of products when filter is set", async () => {
+  const { getAllByText } = render(connectedApp);
+
+  await wait(() => {
+    fireEvent.click(screen.getByTestId("checkbox-regular"));
+    expect(getAllByText("Tampon pack")).toHaveLength(3);
   });
 });

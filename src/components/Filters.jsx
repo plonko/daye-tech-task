@@ -47,6 +47,7 @@ const Filters = props => {
   const getListItem = text => {
     const value = text.toString().toLocaleLowerCase();
     const labelId = `checkbox-list-secondary-label-${value}`;
+    const testId = `checkbox-${value}`;
 
     return (
       <ListItem button key={value} dense onClick={handleToggle(value)}>
@@ -55,7 +56,7 @@ const Filters = props => {
           edge="end"
           checked={checked.indexOf(value) !== -1}
           disableRipple
-          inputProps={{ "aria-labelledby": labelId }}
+          inputProps={{ "aria-labelledby": labelId, "data-testid": testId }}
         />
       </ListItem>
     );
