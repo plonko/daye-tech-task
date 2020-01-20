@@ -22,6 +22,14 @@ should be in react but feel free to use whatever packages or setup you want!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Dev notes
+
+- I wanted to clean the data up before it went to the component, so I decided to use Redux as the store, and have a single clean place for the data.
+- I used the Ducks pattern, keeping all actions etc in the same module file. https://github.com/erikras/ducks-modular-redux
+- I used Material UI for the first time, for quick prototyping. As such there's quite a lot of JSX in some files, but it allowed me to get on with developing the harder parts more quickly. https://material-ui.com/
+- I reused propType definitions for the first time, it seems to have worked alright.
+- The filtering is fairly basic, it just shows how it could work using Reselect.
+
 ## Available Scripts
 
 In the project directory, you can run:
